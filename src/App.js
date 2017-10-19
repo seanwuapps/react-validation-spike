@@ -7,7 +7,7 @@ import { Validator } from './validator'
 class App extends Component {
   state = {
     data : {
-      name : ''
+      email : ''
     },
     errors: {}
   }
@@ -26,13 +26,16 @@ class App extends Component {
     })
   }
   validate = () => {
-    this.validator.require('name')
+    this.validator.isEmail('email')
+    this.validator.require('email')
     return this.validator.isValid()
   }
 
   submit = () =>{
     if( this.validate() ) {
       this.setState({message: 'Validated!'})
+    }else {
+      this.setState({message: ''})
     }
   }
 
@@ -45,9 +48,9 @@ class App extends Component {
         </header>
         <p className="App-intro">
           <form onChange={this.updateForm} method="post">
-            <label htmlFor="name">Name</label>
-            <input id="name" name="name" />
-            { this.state.errors.name && this.validator.getError('name')}
+            <label htmlFor="email">email</label>
+            <input id="email" name="email" />
+            { this.state.errors.email && this.validator.getError('email')}
             <button type="button" onClick={this.submit}>Submit</button>
           </form>
           {
